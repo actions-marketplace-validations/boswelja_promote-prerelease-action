@@ -5787,6 +5787,10 @@ var github = __nccwpck_require__(438);
 
 async function run() {
   try {
+    if (!process.env.GITHUB_TOKEN) {
+      (0,core.setFailed)('Pasing GITHUB_TOKEN env is required');
+      return;
+    }
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = (0,github.getOctokit)(process.env.GITHUB_TOKEN);
   
