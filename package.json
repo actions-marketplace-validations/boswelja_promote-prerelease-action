@@ -1,6 +1,6 @@
 {
   "name": "promote-prerelease-action",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Promote the latest GitHub pre-release to stable.",
   "main": "dist/index.js",
   "scripts": {
