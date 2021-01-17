@@ -5795,23 +5795,36 @@ async function run() {
 
     // Get the latest release
     (0,core.info)('Getting latest release');
-    const { data: latestRelease } = await octokit.repos.getLatestRelease({
-      ...github.context.repo
-    });
-    (0,core.debug)(`Latest release:\n${latestRelease.toString()}`)
+    const latestReleaseResult = await octokit.graphql(
+      `query($owner: String!, $repo: String!){
+        repository(owner: $owner, name: $repo) {
+          releases(last: 1) {
+            nodes {
+              id
+              isPrerelease
+              name
+            }
+          }
+        }
+      }`,
+      {
+        ...github.context.repo
+      }
+    )
+    const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult?.data?.releases?.nodes[0];
+    (0,core.debug)(`Latest release:\n${releaseName}`)
 
     // If the latest release is null (i.e. there are no releases), fail the action.
-    if (!latestRelease) {
+    if (!releaseId) {
       ;(0,core.setFailed)('No releases found');
       return;
     }
     // If the latest release is not a prerelease, warn the user and skip the run.
-    if (!latestRelease.prerelease) {
+    if (!isPrerelease) {
       (0,core.warn)('Latest release is not a prerelease, skipping.');
       return;
     }
 
-    const { id: releaseId } = latestRelease;
 
     (0,core.info)("Promoting latest release to production");
     const { data: result } = await octokit.repos.updateRelease({
