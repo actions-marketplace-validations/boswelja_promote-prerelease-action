@@ -10,14 +10,10 @@ export async function run() {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = getOctokit(process.env.GITHUB_TOKEN);
   
-    // Get owner and repo from context of payload that triggered the action
-    const { owner: currentOwner, repo: currentRepo } = context.repo;
-
     // Get the latest release
     info('Getting latest release');
     const { data: latestRelease } = await octokit.repos.getLatestRelease({
-      currentOwner,
-      currentRepo
+      ...context.repo
     });
     debug(`Latest release:\n${latestRelease.toString()}`)
 
@@ -36,9 +32,8 @@ export async function run() {
 
     info("Promoting latest release to production");
     const { data: result } = await octokit.repos.updateRelease({
-      currentOwner,
-      currentRepo,
-      releaseId,
+      ...context.repo,
+      release_id: releaseId,
       prerelease: false
     });
 
