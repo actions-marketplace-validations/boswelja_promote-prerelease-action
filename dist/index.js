@@ -5789,8 +5789,10 @@ async function run() {
   try {
     const token = (0,core.getInput)('repo-token', { required: true });
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = (0,github.getOctokit)(token);
+    const octokit = (0,github.getOctokit)(token, { auth: `token ${token}`});
   
+    (0,core.debug)(...github.context.repo);
+
     // Get the latest release
     (0,core.info)('Getting latest release');
     const { data: latestRelease } = await octokit.repos.getLatestRelease({
