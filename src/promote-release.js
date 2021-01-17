@@ -1,7 +1,7 @@
 import { setOutput, setFailed, info, debug, warn } from '@actions/core';
 import { GitHub, context } from '@actions/github';
 
-async function run() {
+export async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const github = new GitHub(process.env.GITHUB_TOKEN);
@@ -15,6 +15,8 @@ async function run() {
       currentOwner,
       currentRepo
     });
+    debug(`Latest release:\n${latestRelease.toString()}`)
+
     // If the latest release is null (i.e. there are no releases), fail the action.
     if (!latestRelease) {
       setFailed('No releases found');
@@ -28,6 +30,7 @@ async function run() {
 
     const { id: releaseId } = latestRelease;
 
+    info("Promoting latest release to production");
     const result = await github.repos.updateRelease({
       currentOwner,
       currentRepo,
@@ -39,6 +42,7 @@ async function run() {
       setFailed('Failed to update the latest release');
       return;
     }
+    debug(`Updated release:\n${result.toString()}`);
 
     setOutput('releaseId', releaseId);
   } catch (error) {
@@ -46,5 +50,3 @@ async function run() {
     return;
   }
 }
-
-export default run;
