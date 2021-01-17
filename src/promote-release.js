@@ -1,4 +1,4 @@
-import { setOutput, setFailed, info, debug, warn } from '@actions/core';
+import { setOutput, setFailed, info, debug, warn, error } from '@actions/core';
 import { getOctokit, context } from '@actions/github';
 
 export async function run() {
@@ -14,6 +14,10 @@ export async function run() {
     info('Getting latest release');
     const { data: latestRelease } = await octokit.repos.getLatestRelease({
       ...context.repo
+    }).catch((error) => {
+      error('Failed to get latest release info');
+      setFailed(error);
+      return;
     });
     debug(`Latest release:\n${latestRelease.toString()}`)
 
