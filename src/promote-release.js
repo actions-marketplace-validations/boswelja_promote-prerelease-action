@@ -1,5 +1,5 @@
 import { setOutput, setFailed, info, debug, warn } from '@actions/core';
-import github from '@actions/github';
+import { github } from '@actions/github';
 
 export async function run() {
   try {
