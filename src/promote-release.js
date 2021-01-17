@@ -5,7 +5,7 @@ export async function run() {
   try {
     const token = getInput('repo-token', { required: true });
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = getOctokit({ auth: token });
+    const octokit = getOctokit(token);
 
     debug(`${context.repo.owner}/${context.repo.repo}`);
 

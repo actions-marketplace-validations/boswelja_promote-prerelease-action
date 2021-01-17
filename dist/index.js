@@ -5789,7 +5789,7 @@ async function run() {
   try {
     const token = (0,core.getInput)('repo-token', { required: true });
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = (0,github.getOctokit)({ auth: token });
+    const octokit = (0,github.getOctokit)(token);
 
     (0,core.debug)(`${github.context.repo.owner}/${github.context.repo.repo}`);
 
