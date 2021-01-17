@@ -1,0 +1,8 @@
+name: 'Promote to production'
+description: 'Promote the latest GitHub pre-release to stable.'
+branding:
+  icon: 'fast-forward'
+  color: 'green'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
