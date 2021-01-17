@@ -4,7 +4,7 @@
   "description": "Promote the latest GitHub pre-release to stable.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build src/main.js -m -o dist/"
+    "build": "ncc build src/main.js -o dist/"
   },
   "repository": {
     "type": "git",
