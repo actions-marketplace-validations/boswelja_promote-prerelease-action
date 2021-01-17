@@ -1,13 +1,13 @@
 import { setOutput, setFailed, info, debug, warn } from '@actions/core';
-import { github } from '@actions/github';
+import { getOctokit, context } from '@actions/github';
 
 export async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+    const octokit = getOctokit(process.env.GITHUB_TOKEN);
   
     // Get owner and repo from context of payload that triggered the action
-    const { owner: currentOwner, repo: currentRepo } = github.context.repo;
+    const { owner: currentOwner, repo: currentRepo } = context.repo;
 
     // Get the latest release
     info('Getting latest release');

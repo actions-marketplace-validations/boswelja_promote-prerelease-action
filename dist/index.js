@@ -5788,10 +5788,10 @@ var github = __nccwpck_require__(438);
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = github.github.getOctokit(process.env.GITHUB_TOKEN);
+    const octokit = (0,github.getOctokit)(process.env.GITHUB_TOKEN);
   
     // Get owner and repo from context of payload that triggered the action
-    const { owner: currentOwner, repo: currentRepo } = github.github.context.repo;
+    const { owner: currentOwner, repo: currentRepo } = github.context.repo;
 
     // Get the latest release
     (0,core.info)('Getting latest release');
