@@ -3,6 +3,10 @@ description: 'Promote the latest GitHub pre-release to stable.'
 branding:
   icon: 'fast-forward'
   color: 'green'
+inputs:
+  repo-token:
+    description: The GitHub Token to use. It must have permission to edit releases.
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'

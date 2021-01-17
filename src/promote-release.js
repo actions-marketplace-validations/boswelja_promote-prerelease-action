@@ -1,14 +1,11 @@
-import { setOutput, setFailed, info, debug, warn, error } from '@actions/core';
+import { setOutput, setFailed, info, debug, warn, error, getInput } from '@actions/core';
 import { getOctokit, context } from '@actions/github';
 
 export async function run() {
   try {
-    if (!process.env.GITHUB_TOKEN) {
-      setFailed('Pasing GITHUB_TOKEN env is required');
-      return;
-    }
+    const token = getInput('repo-token', { required: true });
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = getOctokit(process.env.GITHUB_TOKEN);
+    const octokit = getOctokit(token);
   
     // Get the latest release
     info('Getting latest release');
