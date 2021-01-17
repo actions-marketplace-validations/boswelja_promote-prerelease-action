@@ -5799,9 +5799,9 @@ async function run() {
       ...github.context.repo,
       per_page: 1,
       page: 1
-    })
-    ;(0,core.debug)(`Latest release:\n${JSON.stringify(latestReleaseResult)}`)
-    const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.repository.releases.nodes[0];
+    });
+    (0,core.debug)(`Latest release:\n${JSON.stringify(latestReleaseResult)}`);
+    const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data[0];
 
     // If the latest release is null (i.e. there are no releases), fail the action.
     if (!releaseId) {
