@@ -1,10 +1,10 @@
 {
   "name": "promote-prerelease-action",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Promote the latest GitHub pre-release to stable.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "ncc build src/main.js -o dist/"
+    "build": "ncc build src/main.js -m -o dist/"
   },
   "repository": {
     "type": "git",

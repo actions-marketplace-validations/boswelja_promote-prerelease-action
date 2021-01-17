@@ -30,7 +30,6 @@ export async function run() {
       return;
     }
 
-
     info(`Promoting ${releaseName} to production`);
     const { data: result } = await octokit.repos.updateRelease({
       ...context.repo,
