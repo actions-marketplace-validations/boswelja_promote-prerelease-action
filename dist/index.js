@@ -5780,7 +5780,9 @@ __nccwpck_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
 var core = __nccwpck_require__(186);
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
-var lib_github = __nccwpck_require__(438);
+var github = __nccwpck_require__(438);
+var github_default = /*#__PURE__*/__nccwpck_require__.n(github);
+
 // CONCATENATED MODULE: ./src/promote-release.js
 
 
@@ -5788,14 +5790,14 @@ var lib_github = __nccwpck_require__(438);
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const github = new lib_github.GitHub(process.env.GITHUB_TOKEN);
+    const octokit = github_default().getOctokit(process.env.GITHUB_TOKEN);
   
     // Get owner and repo from context of payload that triggered the action
-    const { owner: currentOwner, repo: currentRepo } = lib_github.context.repo;
+    const { owner: currentOwner, repo: currentRepo } = (github_default()).context.repo;
 
     // Get the latest release
     (0,core.info)('Getting latest release');
-    const latestRelease = await github.repos.getlatestRelease({
+    const latestRelease = await octokit.repos.getlatestRelease({
       currentOwner,
       currentRepo
     });
@@ -5815,7 +5817,7 @@ async function run() {
     const { id: releaseId } = latestRelease;
 
     (0,core.info)("Promoting latest release to production");
-    const result = await github.repos.updateRelease({
+    const result = await octokit.repos.updateRelease({
       currentOwner,
       currentRepo,
       releaseId,
@@ -5987,6 +5989,35 @@ module.exports = require("zlib");;
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__nccwpck_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => module['default'] :
+/******/ 				() => module;
+/******/ 			__nccwpck_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__nccwpck_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__nccwpck_require__.o(definition, key) && !__nccwpck_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__nccwpck_require__.o = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
 /******/ 	(() => {
 /******/ 		// define __esModule on exports

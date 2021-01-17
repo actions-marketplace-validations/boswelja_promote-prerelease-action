@@ -1,17 +1,17 @@
 import { setOutput, setFailed, info, debug, warn } from '@actions/core';
-import { GitHub, context } from '@actions/github';
+import github from '@actions/github';
 
 export async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const github = new GitHub(process.env.GITHUB_TOKEN);
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
   
     // Get owner and repo from context of payload that triggered the action
-    const { owner: currentOwner, repo: currentRepo } = context.repo;
+    const { owner: currentOwner, repo: currentRepo } = github.context.repo;
 
     // Get the latest release
     info('Getting latest release');
-    const latestRelease = await github.repos.getlatestRelease({
+    const latestRelease = await octokit.repos.getlatestRelease({
       currentOwner,
       currentRepo
     });
@@ -31,7 +31,7 @@ export async function run() {
     const { id: releaseId } = latestRelease;
 
     info("Promoting latest release to production");
-    const result = await github.repos.updateRelease({
+    const result = await octokit.repos.updateRelease({
       currentOwner,
       currentRepo,
       releaseId,
