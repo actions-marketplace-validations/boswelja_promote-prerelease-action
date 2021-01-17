@@ -7,7 +7,7 @@ export async function run() {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = getOctokit(token);
   
-    debug(`${context.owner}/${context.repo}`);
+    debug(`${context.repo.owner}/${context.repo.repo}`);
 
     // Get the latest release
     info('Getting latest release');
