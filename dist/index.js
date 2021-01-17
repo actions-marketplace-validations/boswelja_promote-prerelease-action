@@ -5799,7 +5799,7 @@ async function run() {
 
     // Get the latest release
     (0,core.info)('Getting latest release');
-    const latestRelease = await octokit.repos.getlatestRelease({
+    const latestRelease = await octokit.repos.getLatestRelease({
       currentOwner,
       currentRepo
     });

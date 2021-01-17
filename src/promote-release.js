@@ -15,7 +15,7 @@ export async function run() {
 
     // Get the latest release
     info('Getting latest release');
-    const latestRelease = await octokit.repos.getlatestRelease({
+    const latestRelease = await octokit.repos.getLatestRelease({
       currentOwner,
       currentRepo
     });
