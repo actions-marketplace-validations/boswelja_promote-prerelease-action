@@ -5811,12 +5811,12 @@ async function run() {
         ...github.context.repo
       }
     )
+    ;(0,core.debug)(`Latest release:\n${latestReleaseResult.toString()}`)
     const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data.repository.releases.nodes[0];
-    (0,core.debug)(`Latest release:\n${releaseName}`)
 
     // If the latest release is null (i.e. there are no releases), fail the action.
     if (!releaseId) {
-      ;(0,core.setFailed)('No releases found');
+      (0,core.setFailed)('No releases found');
       return;
     }
     // If the latest release is not a prerelease, warn the user and skip the run.

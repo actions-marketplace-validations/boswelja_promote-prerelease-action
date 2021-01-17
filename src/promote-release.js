@@ -27,8 +27,8 @@ export async function run() {
         ...context.repo
       }
     )
+    debug(`Latest release:\n${latestReleaseResult.toString()}`)
     const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data.repository.releases.nodes[0];
-    debug(`Latest release:\n${releaseName}`)
 
     // If the latest release is null (i.e. there are no releases), fail the action.
     if (!releaseId) {
