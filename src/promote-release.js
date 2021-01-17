@@ -28,7 +28,7 @@ export async function run() {
       }
     )
     debug(`Latest release:\n${JSON.stringify(latestReleaseResult)}`)
-    const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data.repository.releases.nodes[0];
+    const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.repository.releases.nodes[0];
 
     // If the latest release is null (i.e. there are no releases), fail the action.
     if (!releaseId) {
