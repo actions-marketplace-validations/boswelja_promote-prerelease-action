@@ -27,7 +27,7 @@ export async function run() {
         ...context.repo
       }
     )
-    debug(`Latest release:\n${latestReleaseResult.toString()}`)
+    debug(`Latest release:\n${JSON.stringify(latestReleaseResult)}`)
     const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data.repository.releases.nodes[0];
 
     // If the latest release is null (i.e. there are no releases), fail the action.
@@ -53,7 +53,7 @@ export async function run() {
       setFailed('Failed to update the latest release');
       return;
     }
-    debug(`Updated release:\n${result.toString()}`);
+    debug(`Updated release:\n${JSON.stringify(result)}`);
 
     setOutput('releaseId', releaseId);
   } catch (error) {

@@ -5811,7 +5811,7 @@ async function run() {
         ...github.context.repo
       }
     )
-    ;(0,core.debug)(`Latest release:\n${latestReleaseResult.toString()}`)
+    ;(0,core.debug)(`Latest release:\n${JSON.stringify(latestReleaseResult)}`)
     const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data.repository.releases.nodes[0];
 
     // If the latest release is null (i.e. there are no releases), fail the action.
@@ -5837,7 +5837,7 @@ async function run() {
       (0,core.setFailed)('Failed to update the latest release');
       return;
     }
-    (0,core.debug)(`Updated release:\n${result.toString()}`);
+    (0,core.debug)(`Updated release:\n${JSON.stringify(result)}`);
 
     (0,core.setOutput)('releaseId', releaseId);
   } catch (error) {
