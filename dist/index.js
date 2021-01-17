@@ -5795,22 +5795,11 @@ async function run() {
 
     // Get the latest release
     (0,core.info)('Getting latest release');
-    const latestReleaseResult = await octokit.graphql(
-      `query($owner: String!, $repo: String!){
-        repository(owner: $owner, name: $repo) {
-          releases(last: 1) {
-            nodes {
-              id
-              isPrerelease
-              name
-            }
-          }
-        }
-      }`,
-      {
-        ...github.context.repo
-      }
-    )
+    const latestReleaseResult = await octokit.repos.listReleases({
+      ...github.context.repo,
+      per_page: 1,
+      page: 1
+    })
     ;(0,core.debug)(`Latest release:\n${JSON.stringify(latestReleaseResult)}`)
     const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.repository.releases.nodes[0];
 
@@ -5826,7 +5815,7 @@ async function run() {
     }
 
 
-    (0,core.info)("Promoting latest release to production");
+    (0,core.info)(`Promoting ${releaseName} to production`);
     const { data: result } = await octokit.repos.updateRelease({
       ...github.context.repo,
       release_id: releaseId,
