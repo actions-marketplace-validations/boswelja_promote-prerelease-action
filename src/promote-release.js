@@ -6,15 +6,13 @@ export async function run() {
     const token = getInput('repo-token', { required: true });
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = getOctokit(token);
-    const currentRepo = context.repo;
   
     debug(`${context.repo.owner}/${context.repo.repo}`);
 
     // Get the latest release
     info('Getting latest release');
     const { data: latestRelease } = await octokit.repos.getLatestRelease({
-      owner: currentRepo.owner,
-      repo: currentRepo.repo
+      ...context.repo
     });
     debug(`Latest release:\n${latestRelease.toString()}`)
 
@@ -33,8 +31,7 @@ export async function run() {
 
     info("Promoting latest release to production");
     const { data: result } = await octokit.repos.updateRelease({
-      owner: currentRepo.owner,
-      repo: currentRepo.repo,
+      ...context.repo,
       release_id: releaseId,
       prerelease: false
     });

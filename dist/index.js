@@ -5790,15 +5790,13 @@ async function run() {
     const token = (0,core.getInput)('repo-token', { required: true });
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = (0,github.getOctokit)(token);
-    const currentRepo = github.context.repo;
   
     (0,core.debug)(`${github.context.repo.owner}/${github.context.repo.repo}`);
 
     // Get the latest release
     (0,core.info)('Getting latest release');
     const { data: latestRelease } = await octokit.repos.getLatestRelease({
-      owner: currentRepo.owner,
-      repo: currentRepo.repo
+      ...github.context.repo
     });
     (0,core.debug)(`Latest release:\n${latestRelease.toString()}`)
 
@@ -5817,8 +5815,7 @@ async function run() {
 
     (0,core.info)("Promoting latest release to production");
     const { data: result } = await octokit.repos.updateRelease({
-      owner: currentRepo.owner,
-      repo: currentRepo.repo,
+      ...github.context.repo,
       release_id: releaseId,
       prerelease: false
     });
