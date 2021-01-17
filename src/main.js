@@ -1,3 +1,3 @@
-import run from './promote-release';
+import { run } from './promote-release';
 
 run();
