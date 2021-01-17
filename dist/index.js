@@ -5798,9 +5798,9 @@ async function run() {
     (0,core.info)('Getting latest release');
     const { data: latestRelease } = await octokit.repos.getLatestRelease({
       ...github.context.repo
-    }).catch((error) => {
-      error('Failed to get latest release info');
-      (0,core.setFailed)(error);
+    }).catch((reason) => {
+      (0,core.error)('Failed to get latest release info');
+      (0,core.setFailed)(reason);
       return;
     });
     (0,core.debug)(`Latest release:\n${latestRelease.toString()}`)

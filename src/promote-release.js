@@ -14,9 +14,9 @@ export async function run() {
     info('Getting latest release');
     const { data: latestRelease } = await octokit.repos.getLatestRelease({
       ...context.repo
-    }).catch((error) => {
+    }).catch((reason) => {
       error('Failed to get latest release info');
-      setFailed(error);
+      setFailed(reason);
       return;
     });
     debug(`Latest release:\n${latestRelease.toString()}`)
