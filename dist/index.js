@@ -5801,7 +5801,7 @@ async function run() {
       page: 1
     });
     (0,core.debug)(`Latest release:\n${JSON.stringify(latestReleaseResult)}`);
-    const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data[0];
+    const { name: releaseName, id: releaseId, prerelease: isPrerelease } = latestReleaseResult.data[0];
 
     // If the latest release is null (i.e. there are no releases), fail the action.
     if (!releaseId) {
@@ -5810,7 +5810,7 @@ async function run() {
     }
     // If the latest release is not a prerelease, warn the user and skip the run.
     if (!isPrerelease) {
-      (0,core.warn)('Latest release is not a prerelease, skipping.');
+      (0,core.warning)('Latest release is not a prerelease, skipping.');
       return;
     }
 

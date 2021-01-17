@@ -1,4 +1,4 @@
-import { setOutput, setFailed, info, debug, warn, getInput } from '@actions/core';
+import { setOutput, setFailed, info, debug, getInput, warning } from '@actions/core';
 import { getOctokit, context } from '@actions/github';
 
 export async function run() {
@@ -17,7 +17,7 @@ export async function run() {
       page: 1
     });
     debug(`Latest release:\n${JSON.stringify(latestReleaseResult)}`);
-    const { name: releaseName, id: releaseId, isPrerelease: isPrerelease } = latestReleaseResult.data[0];
+    const { name: releaseName, id: releaseId, prerelease: isPrerelease } = latestReleaseResult.data[0];
 
     // If the latest release is null (i.e. there are no releases), fail the action.
     if (!releaseId) {
@@ -26,7 +26,7 @@ export async function run() {
     }
     // If the latest release is not a prerelease, warn the user and skip the run.
     if (!isPrerelease) {
-      warn('Latest release is not a prerelease, skipping.');
+      warning('Latest release is not a prerelease, skipping.');
       return;
     }
 
