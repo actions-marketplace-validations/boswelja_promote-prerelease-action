@@ -1,0 +1,30 @@
+{
+  "name": "promote-prerelease-action",
+  "version": "1.0.0",
+  "description": "Promote the latest GitHub pre-release to stable.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/main.js -m -o dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boswelja/promote-prerelease-action.git"
+  },
+  "keywords": [
+    "action",
+    "release"
+  ],
+  "author": "Jack Boswell (boswelja)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boswelja/promote-prerelease-action/issues"
+  },
+  "homepage": "https://github.com/boswelja/promote-prerelease-action#readme",
+  "devDependencies": {
+    "@vercel/ncc": "^0.27.0"
+  },
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  }
+}
