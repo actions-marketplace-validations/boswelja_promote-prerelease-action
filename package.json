@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/boswelja/promote-prerelease-action#readme",
   "devDependencies": {
-    "@vercel/ncc": "^0.28.1"
+    "@vercel/ncc": "^0.28.2"
   },
   "dependencies": {
     "@actions/core": "^1.2.6",
